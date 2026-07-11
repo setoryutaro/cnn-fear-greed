@@ -8,23 +8,19 @@ const { chromium } = require("playwright");
 
   const page = await browser.newPage();
 
-  // JSONレスポンスを待つ
-  const responsePromise = page.waitForResponse(r =>
-    r.url().includes("/charts/data/50108")
-  );
-
   await page.goto(
     "https://en.macromicro.me/charts/50108/cnn-fear-and-greed",
     {
-      waitUntil: "networkidle",
-      timeout: 120000
+      waitUntil: "domcontentloaded",
+      timeout: 30000
     }
   );
 
-  const response = await responsePromise;
+  console.log("TITLE =", await page.title());
 
-  console.log("STATUS =", response.status());
-  console.log("URL =", response.url());
+  console.log("URL =", page.url());
+
+  console.log(await page.content());
 
   await browser.close();
 
