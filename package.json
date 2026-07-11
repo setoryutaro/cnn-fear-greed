@@ -1,0 +1,10 @@
+{
+  "name": "cnn-fear-greed",
+  "version": "1.0.0",
+  "scripts": {
+    "fetch": "node fetch.js"
+  },
+  "dependencies": {
+    "playwright": "^1.55.0"
+  }
+}
