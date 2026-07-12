@@ -1,6 +1,10 @@
 name: Update Fear & Greed
 
 on:
+  schedule:
+    # 毎日10:00 JST（= 毎日01:00 UTC）
+    - cron: '0 1 * * *'
+
   workflow_dispatch:
 
 jobs:
