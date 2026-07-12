@@ -9,7 +9,7 @@ from google.oauth2.service_account import Credentials
 # Fear & Greed Index取得
 # -------------------------
 data = fear_greed.get()
-score = data["score"]
+score = round(data["score"])
 
 print("FGI:", score)
 
