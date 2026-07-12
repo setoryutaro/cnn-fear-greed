@@ -1,5 +1,7 @@
 import json
 import os
+from datetime import datetime
+from zoneinfo import ZoneInfo
 
 import fear_greed
 import gspread
@@ -9,9 +11,9 @@ from google.oauth2.service_account import Credentials
 # Fear & Greed Index取得
 # -------------------------
 data = fear_greed.get()
-score = round(data["score"])
+score = round(data["score"])  # CNN表示に合わせて整数化
 
-print("FGI:", score)
+print(f"FGI: {score}")
 
 # -------------------------
 # Google認証
@@ -39,11 +41,19 @@ worksheet = gc.open_by_key(
 ).worksheet("FGI")
 
 # -------------------------
-# F2へ書き込み
+# 更新日時（日本時間）
+# -------------------------
+now = datetime.now(
+    ZoneInfo("Asia/Tokyo")
+).strftime("%Y-%m-%d %H:%M")
+
+# -------------------------
+# E2=更新日時
+# F2=FGI
 # -------------------------
 worksheet.update(
-    "F2",
-    [[score]]
+    "E2:F2",
+    [[now, score]]
 )
 
-print("Google Sheets Updated!")
+print(f"Updated: {now}  FGI={score}")
